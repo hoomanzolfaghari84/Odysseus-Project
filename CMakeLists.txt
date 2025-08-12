@@ -48,17 +48,30 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(json)
 
+FetchContent_Declare(
+    glm
+    GIT_REPOSITORY https://github.com/g-truc/glm.git
+    GIT_TAG 1.0.1
+)
+FetchContent_MakeAvailable(glm)
+
 project ("Odysseus")
 
+
 # Function to copy assets next to the target executable
-function(copy_assets TARGET_NAME)
-    add_custom_command(
-        TARGET ${TARGET_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-            ${CMAKE_SOURCE_DIR}/assets
-            $<TARGET_FILE_DIR:${TARGET_NAME}>/assets
-    )
+function(copy_assets TARGET_NAME ASSETS_PATH)
+    if (EXISTS ${ASSETS_PATH})
+        add_custom_command(
+            TARGET ${TARGET_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+                ${ASSETS_PATH}
+                $<TARGET_FILE_DIR:${TARGET_NAME}>/assets
+        )
+    else()
+        message(WARNING "Assets folder not found: ${ASSETS_PATH}")
+    endif()
 endfunction()
+
 
 # Include sub-projects.
 add_subdirectory ("Odysseus2D")

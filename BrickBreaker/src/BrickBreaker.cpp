@@ -1,9 +1,39 @@
 #include <Odysseus2D.hpp>
 
-int main() {
+
+class BrickBreaker : public Odysseus2D::Application
+{
+public:
+	BrickBreaker(const Odysseus2D::ApplicationSpecifications& specification)
+		: Odysseus2D::Application(specification)
+	{
+		// PushLayer(new ExampleLayer());
+		// PushLayer(new Sandbox2D());
+	}
+
+	~BrickBreaker()
+	{
+	}
+};
 
 
-	std::cout << "default dir: " << std::filesystem::current_path() << std::endl;
 
-	std::cout << "hello\n";
+Odysseus2D::Application* Odysseus2D::CreateApplication(Odysseus2D::ApplicationCommandLineArgs args)
+{
+	std::cout << "default dir: " <<
+		std::filesystem::current_path() << std::endl;
+
+	ApplicationSpecifications spec;
+	spec.Name = "BrickBreaker";
+	spec.WorkingDirectory = "";
+	spec.CommandLineArgs = args;
+
+	if (!spec.WorkingDirectory.empty()) {
+		std::filesystem::current_path(spec.WorkingDirectory);
+		std::cout << "current dir: " <<
+			std::filesystem::current_path() << std::endl;
+	}
+
+	return new BrickBreaker(spec);
 }
+

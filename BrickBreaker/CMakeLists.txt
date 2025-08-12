@@ -10,7 +10,8 @@ if (CMAKE_VERSION VERSION_GREATER 3.12)
 endif()
 
 # Copy assets after build
-copy_assets(BrickBreaker)
+copy_assets(BrickBreaker ${CMAKE_CURRENT_SOURCE_DIR}/assets)
+
 
 # TODO: Add tests and install targets if needed.
 target_link_libraries(BrickBreaker PRIVATE Odysseus2D)
