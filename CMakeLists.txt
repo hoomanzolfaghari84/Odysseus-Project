@@ -1,7 +1,7 @@
 ﻿# CMakeList.txt : Top-level CMake project file, do global configuration
 # and include sub-projects here.
 #
-cmake_minimum_required (VERSION 3.8)
+cmake_minimum_required (VERSION 3.8...4.0)
 
 # Enable Hot Reload for MSVC compilers if supported.
 if (POLICY CMP0141)
@@ -34,8 +34,8 @@ FetchContent_MakeAvailable(entt)
 FetchContent_Declare(
 	box2d
 	GIT_REPOSITORY https://github.com/erincatto/box2d.git
-	GIT_TAG main
-	GIT_SHALLOW TRUE
+	GIT_TAG v3.1.1
+	# GIT_SHALLOW TRUE
 	GIT_PROGRESS TRUE
 )
 FetchContent_MakeAvailable(box2d)
@@ -48,8 +48,17 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(json)
 
-
 project ("Odysseus")
+
+# Function to copy assets next to the target executable
+function(copy_assets TARGET_NAME)
+    add_custom_command(
+        TARGET ${TARGET_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_SOURCE_DIR}/assets
+            $<TARGET_FILE_DIR:${TARGET_NAME}>/assets
+    )
+endfunction()
 
 # Include sub-projects.
 add_subdirectory ("Odysseus2D")

@@ -6,8 +6,11 @@
 add_executable (BrickBreaker "src/BrickBreaker.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET Odysseus2D PROPERTY CXX_STANDARD 20)
+  set_property(TARGET BrickBreaker PROPERTY CXX_STANDARD 20)
 endif()
 
+# Copy assets after build
+copy_assets(BrickBreaker)
+
 # TODO: Add tests and install targets if needed.
-target_link_directories(BrickBreaker PRIVATE Odysseus2D)
+target_link_libraries(BrickBreaker PRIVATE Odysseus2D)
