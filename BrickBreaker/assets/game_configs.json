@@ -1,0 +1,6 @@
+{
+  "window": { "size": [ 1920, 1080 ] },
+  "brick": { "size": [80.0, 30.0], "spacing": 15 },
+  "ball": { "radius": 20.0, "start-position": [300.0, 770.0] },
+  "paddle": { "size": [100, 40] }
+}

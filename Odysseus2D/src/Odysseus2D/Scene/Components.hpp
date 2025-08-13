@@ -58,12 +58,13 @@ namespace Odysseus2D {
         }
     };
 
-
     struct SpriteRendererComponent
     {
-        glm::vec4 Color = { 0.0, 0.0, 0.0, 0.0 };
+        glm::vec4 Color = { 1.0, 1.0, 1.0, 1.0 };
         std::shared_ptr<sf::Texture> Texture; // SFML texture
         float TilingFactor = 1.0f;
+
+        sf::IntRect SubRectangle;
 
         SpriteRendererComponent() = default;
         SpriteRendererComponent(const SpriteRendererComponent&) = default;
@@ -152,7 +153,6 @@ namespace Odysseus2D {
         SpriteRendererComponent,
         CircleRendererComponent,
         CameraComponent,
-        ScriptComponent,
         Rigidbody2DComponent,
         BoxCollider2DComponent,
         CircleCollider2DComponent,

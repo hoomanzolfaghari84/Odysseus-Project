@@ -22,6 +22,9 @@ namespace Odysseus2D {
 
 		void OnUpdate(Timestep ts);
 
+		entt::registry & GetRegistry() {
+			return m_Registry;
+		}
 
 		//entt::entity DuplicateEntity(entt::entity entity);
 

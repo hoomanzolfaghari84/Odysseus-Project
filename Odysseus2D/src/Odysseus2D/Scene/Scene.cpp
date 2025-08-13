@@ -1,5 +1,6 @@
 #include "Scene.hpp"
 
+#include "Odysseus2D/Core/Base.hpp"
 #include "Odysseus2D/Scene/Components.hpp"
 #include "Odysseus2D/Renderer/Renderer2D.hpp"
 //#include "Hazel/Physics/Physics2D.h"
@@ -38,7 +39,7 @@ namespace Odysseus2D {
 	{
 		auto e = m_Registry.create();
 		if (!name.empty()) {
-			//TODO create name component
+			m_Registry.emplace<TagComponent>(e, name);
 		}
 		return e;
 	}
@@ -66,7 +67,8 @@ namespace Odysseus2D {
 
 	void Scene::OnUpdate(Timestep ts)
 	{
-		if (!m_IsPaused || m_StepFrames-- > 0)
+		//if (!m_IsPaused || m_StepFrames-- > 0)
+		if(!m_IsPaused)
 		{
 			
 			// Physics
@@ -97,38 +99,6 @@ namespace Odysseus2D {
 		RenderScene();
 		
 	}
-
-	//void Scene::OnUpdateSimulation(Timestep ts, EditorCamera& camera)
-	//{
-	//	if (!m_IsPaused || m_StepFrames-- > 0)
-	//	{
-	//		// Physics
-	//		{
-	//			const int32_t velocityIterations = 6;
-	//			const int32_t positionIterations = 2;
-	//			m_PhysicsWorld->Step(ts, velocityIterations, positionIterations);
-
-	//			// Retrieve transform from Box2D
-	//			auto view = m_Registry.view<Rigidbody2DComponent>();
-	//			for (auto e : view)
-	//			{
-	//				Entity entity = { e, this };
-	//				auto& transform = entity.GetComponent<TransformComponent>();
-	//				auto& rb2d = entity.GetComponent<Rigidbody2DComponent>();
-
-	//				b2Body* body = (b2Body*)rb2d.RuntimeBody;
-	//				const auto& position = body->GetPosition();
-	//				transform.Translation.x = position.x;
-	//				transform.Translation.y = position.y;
-	//				transform.Rotation.z = body->GetAngle();
-	//			}
-	//		}
-	//	}
-
-	//	// Render
-	//	RenderScene(camera);
-	//}
-
 	
 	void Scene::Step(int frames)
 	{

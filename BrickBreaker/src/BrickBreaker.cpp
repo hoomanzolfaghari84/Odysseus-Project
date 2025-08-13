@@ -1,5 +1,7 @@
 #include <Odysseus2D.hpp>
+#include <Odysseus2D/Core/EntryPoint.hpp>
 
+#include "Gameplay/Gameplay.hpp"
 
 class BrickBreaker : public Odysseus2D::Application
 {
@@ -7,7 +9,7 @@ public:
 	BrickBreaker(const Odysseus2D::ApplicationSpecifications& specification)
 		: Odysseus2D::Application(specification)
 	{
-		// PushLayer(new ExampleLayer());
+		 PushLayer(new GameplayLayer());
 		// PushLayer(new Sandbox2D());
 	}
 

@@ -1,5 +1,5 @@
 #include "Odysseus2D/Renderer/Renderer2D.hpp"
-
+#include "Odysseus2D/Core/Base.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -16,15 +16,14 @@ namespace Odysseus2D {
 
 		float LineWidth = 2.0f;
 
-		std::vector<sf::RectangleShape> rects;
-		std::vector<sf::CircleShape> circles;
+		std::vector<std::pair<sf::RectangleShape,sf::RenderStates>> rects;
+		std::vector<std::pair<sf::CircleShape, sf::RenderStates>> circles;
+		std::vector<std::pair<sf::Sprite, sf::RenderStates>> sprites;
 		
 		//std::array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
 		uint32_t TextureSlotIndex = 1; // 0 = white texture
 
 		//Ref<Texture2D> FontAtlasTexture;
-
-		glm::vec4 QuadVertexPositions[4];
 
 		Renderer2D::Statistics Stats;
 	};
@@ -66,9 +65,20 @@ namespace Odysseus2D {
 
 	void Renderer2D::Flush()
 	{
-		for (auto rect : s_Data.rects) {
-			m_Window->draw(rect);
+
+		for (auto rect : s_Data.sprites) {
+			m_Window->draw(rect.first, rect.second);
 		}
+
+		for (auto rect : s_Data.rects) {
+			m_Window->draw(rect.first, rect.second);
+		}
+
+		for (auto rect : s_Data.circles) {
+			m_Window->draw(rect.first, rect.second);
+		}
+
+		
 	}
 
 	void Renderer2D::NextBatch()
@@ -82,12 +92,18 @@ namespace Odysseus2D {
 		sf::RectangleShape rect(sf::Vector2f(size.x, size.y));
 		rect.setPosition(glmVec2ToSfVec(position));
 		rect.setFillColor(glmVec4ToSfColor(color));
-		s_Data.rects.emplace_back(rect);
+		s_Data.rects.emplace_back(rect, sf::RenderStates::Default);
 		//m_Drawables.push_back(rect);
 	}
 
 	void Renderer2D::DrawQuad(const glm::mat3& transform, const glm::vec4& color) {
-		
+		sf::Transform sfTransform = glmMat3ToSfTransform(transform);
+		sf::RectangleShape rect({1.0,1.0});
+		rect.setFillColor(glmVec4ToSfColor(color));
+		sf::RenderStates states;
+		states.transform = sfTransform;
+		s_Data.rects.emplace_back(rect, states);
+
 	}
 
 
@@ -97,7 +113,7 @@ namespace Odysseus2D {
 		rect.setPosition(glmVec2ToSfVec(position));
 		rect.setRotation(sf::radians(rotation)); // glm rotation is in radians
 		rect.setFillColor(glmVec4ToSfColor(color));
-		s_Data.rects.emplace_back(rect);
+		s_Data.rects.emplace_back(rect, sf::RenderStates::Default);
 		//m_Drawables.push_back(rect);
 	}
 
@@ -125,9 +141,31 @@ namespace Odysseus2D {
 		DrawLine(p3, p0, color, entityID);*/
 	}
 
-	void Renderer2D::DrawSprite(const glm::mat3& transform, SpriteRendererComponent& src)
+	void Renderer2D::DrawSprite(const glm::mat3& transform, SpriteRendererComponent& src) // Sprite top left corner is the transform translation
 	{
-		
+	
+		if (src.Texture) {
+
+			sf::Transform sfTransform = glmMat3ToSfTransform(transform);
+
+			sf::Sprite sprite(*src.Texture);
+
+			// If tiling is needed
+			auto size = src.Texture->getSize();
+			sprite.setTextureRect(src.SubRectangle);
+			
+			sprite.setColor(glmVec4ToSfColor(src.Color));
+			
+			sf::RenderStates states;
+			states.transform = sfTransform;
+
+			s_Data.sprites.emplace_back(sprite, states);
+		}
+		else
+		{
+			DrawQuad(transform, src.Color);
+		}
+
 	}
 
 	/*void Renderer2D::DrawString(const std::string& string, std::shared_ptr<Font> font, const glm::mat4& transform, const TextParams& textParams, int entityID)
