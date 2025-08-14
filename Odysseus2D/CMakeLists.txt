@@ -11,7 +11,7 @@ add_library (Odysseus2D STATIC "src/Odysseus2D.hpp"
     "src/Odysseus2D/Core/LayerStack.hpp"
     "src/Odysseus2D/Core/LayerStack.cpp"
     "src/Odysseus2D/Scene/Scene.cpp"
-     "src/Odysseus2D/Renderer/Renderer2D.cpp" "src/Odysseus2D/Utils/ConfigManager.cpp" "src/Odysseus2D/Utils/RandomGenerator.cpp")
+     "src/Odysseus2D/Renderer/Renderer2D.cpp" "src/Odysseus2D/Utils/ConfigManager.cpp" "src/Odysseus2D/Utils/RandomGenerator.cpp" "src/Odysseus2D/Scene/Physics.cpp" "src/Odysseus2D/Core/Input.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET Odysseus2D PROPERTY CXX_STANDARD 20)

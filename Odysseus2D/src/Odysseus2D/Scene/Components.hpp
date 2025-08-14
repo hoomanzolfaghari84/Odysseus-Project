@@ -63,6 +63,8 @@ namespace Odysseus2D {
         glm::vec4 Color = { 1.0, 1.0, 1.0, 1.0 };
         std::shared_ptr<sf::Texture> Texture; // SFML texture
         float TilingFactor = 1.0f;
+        
+        glm::vec2 Origin = { 0.f, 0.f };
 
         sf::IntRect SubRectangle;
 
@@ -100,6 +102,8 @@ namespace Odysseus2D {
         enum class BodyType { Static = 0, Dynamic, Kinematic };
         BodyType Type = BodyType::Static;
         bool FixedRotation = false;
+
+        glm::vec2 CoMOffset = { 0.f, 0.f };
 
         void* RuntimeBody = nullptr; // link to physics engine body
 

@@ -7,12 +7,14 @@
 #include <filesystem>
 
 #include <entt/entt.hpp>
+#include <box2d/box2d.h>
 
 // TODO: Reference additional headers your program requires here.
 #include "Odysseus2D/Core/Base.hpp"
 #include "Odysseus2D/Core/Timestep.hpp"
 #include "Odysseus2D/Core/Application.hpp"
 #include "Odysseus2D/Core/Layer.hpp"
+#include "Odysseus2D/Core/Input.hpp"
 
 //#include "Odysseus2D/Events/EventSystem.hpp"
 

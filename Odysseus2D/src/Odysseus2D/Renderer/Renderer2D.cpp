@@ -61,6 +61,7 @@ namespace Odysseus2D {
 		//m_Drawables.clear();
 		s_Data.rects.clear();
 		s_Data.circles.clear();
+		s_Data.sprites.clear();
 	}
 
 	void Renderer2D::Flush()
@@ -153,7 +154,9 @@ namespace Odysseus2D {
 			// If tiling is needed
 			auto size = src.Texture->getSize();
 			sprite.setTextureRect(src.SubRectangle);
-			
+
+			sprite.setOrigin(glmVec2ToSfVec(src.Origin));
+
 			sprite.setColor(glmVec4ToSfColor(src.Color));
 			
 			sf::RenderStates states;

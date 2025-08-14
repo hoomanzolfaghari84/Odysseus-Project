@@ -20,14 +20,13 @@ namespace Odysseus2D {
 		if (!m_Specification.WorkingDirectory.empty())
 			std::filesystem::current_path(m_Specification.WorkingDirectory);
 
-		m_Window = new sf::RenderWindow(sf::VideoMode({ 1920u, 1080u }), "CMake SFML Project");
-
-		Renderer2D::Init(m_Window);
+		m_Window = std::make_unique<sf::RenderWindow>(sf::VideoMode({ 1920u, 1080u }), "CMake SFML Project");
+		Renderer2D::Init(m_Window.get());
 	}
 
 	Application::~Application()
 	{
-		delete m_Window;
+		
 	}
 
 	void Application::PushLayer(Layer* layer)
@@ -70,6 +69,7 @@ namespace Odysseus2D {
 				{
 					Close();
 				}
+				
 			}
 
 			m_Window->clear();

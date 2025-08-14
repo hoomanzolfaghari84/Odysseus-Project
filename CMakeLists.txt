@@ -78,4 +78,4 @@ add_subdirectory ("Odysseus2D")
 
 add_subdirectory ("BrickBreaker")
 
-# add_subdirectory ("Sandbox")
+add_subdirectory ("Sandbox")

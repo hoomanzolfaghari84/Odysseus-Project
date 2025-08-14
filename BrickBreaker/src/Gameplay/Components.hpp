@@ -50,3 +50,6 @@ struct BrickInfo {
     size_t maxHealth = 2;
 };
 
+struct BallInfo {
+    
+};

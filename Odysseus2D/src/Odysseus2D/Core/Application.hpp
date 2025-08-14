@@ -49,6 +49,10 @@ namespace Odysseus2D {
 
 		static Application& Get() { return *s_Instance; }
 
+		sf::RenderWindow* GetWindow() {
+			return m_Window.get();
+		}
+
 		const ApplicationSpecifications& GetSpecification() const { return m_Specification; }
 		//const EventSystem::EventDispatcher& GetEventDispatcher() const { return m_EventDispatcher; }
 
@@ -59,7 +63,7 @@ namespace Odysseus2D {
 
 	private:
 		ApplicationSpecifications m_Specification;
-		sf::RenderWindow* m_Window;
+		std::unique_ptr<sf::RenderWindow> m_Window;
 		//EventSystem::EventDispatcher m_EventDispatcher;
 		bool m_Running = true;
 		bool m_Minimized = false;

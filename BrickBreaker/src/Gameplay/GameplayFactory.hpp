@@ -13,6 +13,46 @@ public:
 		Odysseus2D::AssetManager::LoadSpriteSheet("BrickBreakerSheet", "assets/assets.json");
 	}
 
+
+	//Ball
+	entt::entity CreateBall() {
+		const auto& config = Odysseus2D::ConfigManager::GetConfig().GetJson();
+		glm::vec2 start_position = { config["ball"]["start-position"][0].get<float>(), config["ball"]["start-position"][1].get<float>() };
+
+		auto entity = m_Scene->CreateEntity("Ball");
+
+		float radius = config["ball"]["radius"].get<float>();
+
+		const Odysseus2D::SpriteSheetData& sheet = Odysseus2D::AssetManager::GetSpriteSheet("BrickBreakerSheet");
+
+		Odysseus2D::SpriteRendererComponent sprc;
+		sprc.Texture = sheet.texture;
+		const auto& rect = sheet.sprites.at("ball").rect;
+		sprc.SubRectangle = rect;
+		glm::vec2 scale{
+			radius*2 / static_cast<float>(rect.size.x),
+			radius*2 / static_cast<float>(rect.size.y)
+		};
+		sprc.Origin = { static_cast<float>(rect.size.x)/2, static_cast<float>(rect.size.y)/2 };
+		m_Scene->GetRegistry().emplace<Odysseus2D::SpriteRendererComponent>(entity, sprc);
+		m_Scene->GetRegistry().emplace<Odysseus2D::TransformComponent>(entity, start_position, 0.0f, scale);
+
+		//Physics
+		Odysseus2D::Rigidbody2DComponent rb2d;
+		rb2d.Type = Odysseus2D::Rigidbody2DComponent::BodyType::Dynamic;
+		m_Scene->GetRegistry().emplace<Odysseus2D::Rigidbody2DComponent>(entity, rb2d);
+		
+		Odysseus2D::CircleCollider2DComponent cc2d;
+		cc2d.Restitution = 1.f;
+		cc2d.Radius = static_cast<float>(rect.size.x) / 2;
+		m_Scene->GetRegistry().emplace<Odysseus2D::CircleCollider2DComponent>(entity, cc2d);
+
+
+		return entity;
+	}
+
+
+	//Bricks
 	void CreateBrickGrid() {
 		auto& config = Odysseus2D::ConfigManager::GetConfig().GetJson();
 
@@ -70,9 +110,16 @@ public:
 			size.x / static_cast<float>(rect.size.x),
 			size.y / static_cast<float>(rect.size.y) 
 			};
-
+		sprc.Origin = { static_cast<float>(rect.size.x)/2, static_cast<float>(rect.size.y)/2 };
 		m_Scene->GetRegistry().emplace<Odysseus2D::SpriteRendererComponent>(entity, sprc);
 		m_Scene->GetRegistry().emplace<Odysseus2D::TransformComponent>(entity, position, 0.0f, scale);
+
+		//Physics
+		m_Scene->GetRegistry().emplace<Odysseus2D::Rigidbody2DComponent>(entity);
+		
+		Odysseus2D::BoxCollider2DComponent bc2d;
+		bc2d.Size = { rect.size.x, rect.size.y };
+		m_Scene->GetRegistry().emplace<Odysseus2D::BoxCollider2DComponent>(entity, bc2d);
 
 		return entity;
 	}

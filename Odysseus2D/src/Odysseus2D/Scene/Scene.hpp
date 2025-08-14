@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Odysseus2D/Core/Timestep.hpp"
+#include "Physics.hpp"
+
 #include <entt/entt.hpp>
 
 namespace Odysseus2D {
@@ -26,6 +28,10 @@ namespace Odysseus2D {
 			return m_Registry;
 		}
 
+		Physics& GetPhysics() {
+			return m_Physics;
+		}
+
 		//entt::entity DuplicateEntity(entt::entity entity);
 
 		entt::entity FindEntityByName(std::string_view name);
@@ -43,6 +49,8 @@ namespace Odysseus2D {
 		void RenderScene();
 	private:
 		entt::registry m_Registry;
+		Physics m_Physics;
+
 		bool m_IsRunning = false;
 		bool m_IsPaused = false;
 		int m_StepFrames = 0;
