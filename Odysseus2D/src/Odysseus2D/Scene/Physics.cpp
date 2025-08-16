@@ -49,6 +49,7 @@ namespace Odysseus2D {
 				b2Polygon box = b2MakeOffsetBox(bc2d.Size.x * transform.Scale.x / 2, bc2d.Size.y * transform.Scale.y / 2, b2Vec2(bc2d.Offset.x, bc2d.Offset.y), b2MakeRot(0.0f));
 
 				b2ShapeDef shapeDef = b2DefaultShapeDef();
+				shapeDef.enableHitEvents = true;
 				shapeDef.density = bc2d.Density;
 				// shapeDef.enableHitEvents = true;
 				//TODO handle offset
@@ -85,6 +86,13 @@ namespace Odysseus2D {
 		b2DestroyWorld(m_WorldId);
 		m_WorldId = b2_nullWorldId;
 
+	}
+
+	void Physics::DestroyBody(entt::entity e)
+	{
+		auto bodyId = m_Scene->GetRegistry().get<b2BodyId>(e);
+		m_Scene->GetRegistry().remove<b2BodyId>(e);
+		b2DestroyBody(bodyId);
 	}
 
 	void Physics::SetVelocity(entt::entity e, glm::vec2 vel)
@@ -124,6 +132,23 @@ namespace Odysseus2D {
 			transform.Translation.x = position.x;
 			transform.Translation.y = position.y;
 			transform.Rotation = b2Rot_GetAngle(b2Body_GetRotation(bodyId));
+		}
+
+
+		b2ContactEvents contactEvents = b2World_GetContactEvents(m_WorldId);
+		for (int i = 0; i < contactEvents.hitCount; i++) {
+
+			//b2ContactHitEvent hitEvent = contactEvents.hitEvents[i];
+			b2ContactHitEvent* hitEvent = contactEvents.hitEvents + i;
+
+			auto ba = b2Shape_GetBody(hitEvent->shapeIdA);
+			auto bb = b2Shape_GetBody(hitEvent->shapeIdB);
+
+			entt::entity entA = (entt::entity)(uintptr_t)b2Body_GetUserData(ba);
+			entt::entity entB = (entt::entity)(uintptr_t)b2Body_GetUserData(bb);
+
+			Application::Get().GetEventDispatcher().publish<CollisionEvent>({ entA, entB });
+
 		}
 
 

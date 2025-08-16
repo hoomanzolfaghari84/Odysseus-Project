@@ -13,8 +13,8 @@
 
 namespace Odysseus2D {
 
-    constexpr float deg2rad = 0.0174533;
-    constexpr float rad2deg = 57.2958;
+    constexpr double deg2rad = 0.0174533;
+    constexpr double rad2deg = 57.2958;
 
     struct TagComponent
     {

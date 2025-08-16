@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 #include "Odysseus2D/Core/Layer.hpp"
 #include "Odysseus2D/Core/LayerStack.hpp"
+#include <Odysseus2D/Events/EventSystem.hpp>
 //#include "Events/EventSystem.hpp"
 
 int main(int argc, char** argv);
@@ -54,7 +55,7 @@ namespace Odysseus2D {
 		}
 
 		const ApplicationSpecifications& GetSpecification() const { return m_Specification; }
-		//const EventSystem::EventDispatcher& GetEventDispatcher() const { return m_EventDispatcher; }
+		EventDispatcher& GetEventDispatcher() { return m_EventDispatcher; }
 
 	private:
 		void Run();
@@ -64,7 +65,7 @@ namespace Odysseus2D {
 	private:
 		ApplicationSpecifications m_Specification;
 		std::unique_ptr<sf::RenderWindow> m_Window;
-		//EventSystem::EventDispatcher m_EventDispatcher;
+		EventDispatcher m_EventDispatcher;
 		bool m_Running = true;
 		bool m_Minimized = false;
 		LayerStack m_LayerStack;

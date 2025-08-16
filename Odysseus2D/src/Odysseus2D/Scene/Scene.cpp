@@ -46,7 +46,13 @@ namespace Odysseus2D {
 
 	void Scene::DestroyEntity(entt::entity entity)
 	{
+		if (m_Registry.all_of<b2BodyId>(entity)) {
+			
+			m_Physics.DestroyBody(entity);
+		}
 		m_Registry.destroy(entity);
+		entity = entt::null;
+		
 	}
 
 	void Scene::OnStart()

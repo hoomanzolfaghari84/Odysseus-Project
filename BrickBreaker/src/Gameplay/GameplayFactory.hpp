@@ -86,7 +86,7 @@ public:
 					margin_x + c * (brick_size.x + spacing),
 					margin_y + r * (brick_size.y + spacing)
 				};
-				CreateBrick(pos, brick_size);
+				CreateBrick(pos + glm::vec2{brick_size.x/2 , brick_size.y/2}, brick_size);
 			}
 		}
 	}

@@ -12,6 +12,18 @@ void GameplayLayer::OnAttach()
 	m_Ball = m_GameplayFactory.CreateBall();
 	m_GameplayFactory.CreateBrickGrid();
 
+	Odysseus2D::Application::Get().GetEventDispatcher().subscribe<Odysseus2D::CollisionEvent>([this](const Odysseus2D::CollisionEvent& p) {
+		if (m_Scene.GetRegistry().all_of<Odysseus2D::TagComponent>(p.a)) {
+			auto& tag = m_Scene.GetRegistry().get<Odysseus2D::TagComponent>(p.a);
+			if(tag.Tag == "Brick")
+				m_Scene.DestroyEntity(p.a);
+		}else if (m_Scene.GetRegistry().all_of<Odysseus2D::TagComponent>(p.b)) {
+			auto& tag = m_Scene.GetRegistry().get<Odysseus2D::TagComponent>(p.b);
+			if (tag.Tag == "Brick")
+				m_Scene.DestroyEntity(p.b);
+		}
+		
+		});
 
 	m_Scene.OnStart();
 }

@@ -111,7 +111,7 @@ namespace Odysseus2D {
 
         template<typename E>
         void publish(const E& e) {
-            auto type = typeid(E);
+            auto type = std::type_index(typeid(E));
             std::vector<std::shared_ptr<HandlerWrapperBase>> snapshot;
             {
                 std::unique_lock<std::mutex> lock(mutex_);
@@ -311,7 +311,8 @@ namespace Odysseus2D {
     }
 
 } // namespace Odysseus2D
-//
+
+
 //// ----------------------------- example usage -----------------------------
 //#ifdef EVT_EXAMPLE
 //#include <thread>

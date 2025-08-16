@@ -40,6 +40,17 @@ namespace Odysseus2D {
 
 	}
 
+	struct CollisionEvent
+	{
+		entt::entity a;
+		entt::entity b;
+
+		CollisionEvent(const entt::entity a, const entt::entity b)
+			: a(a), b(b)
+		{
+		}
+
+	};
 
 	class Physics
 	{
@@ -50,6 +61,8 @@ namespace Odysseus2D {
 		void OnStart();
 		void OnUpdate(Timestep ts);
 		void OnStop();
+
+		void DestroyBody(entt::entity e);
 
 		void SetVelocity(entt::entity e, glm::vec2 vel);
 		void ApplyImpulse(entt::entity e, glm::vec2 impulse);
