@@ -18,8 +18,9 @@ The project is still in active development — some parts are built on existing 
 
 ---
 
-# 📂 Odysseus2D Codebase Structure
+## 📂 Odysseus2D Codebase Structure
 
+```
 Odysseus2D
 ├── Odysseus2D.hpp                # Public engine header
 │
@@ -39,7 +40,7 @@ Odysseus2D
 └── Utils/                        # Utility modules
     ├── ConfigManager.cpp         # Loads JSON configs
     └── RandomGenerator.cpp       # Random number utilities
-
+```
 ---
 
 ## 📦 Dependencies
