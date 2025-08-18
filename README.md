@@ -25,6 +25,8 @@ The project currently depends on the following libraries:
 - [Box2D](https://github.com/erincatto/box2d) — 2D physics engine
 - [nlohmann/json](https://github.com/nlohmann/json) — JSON configuration
 - [glm](https://github.com/g-truc/glm) — mathematics library (vectors, matrices)
+- [EnTT](https://github.com/skypjack/entt) — fast and modern **Entity-Component-System** framework
+
 
 > 🔧 Future goal: replace some dependencies with in-house implementations as the engine matures.
 
