@@ -18,6 +18,30 @@ The project is still in active development — some parts are built on existing 
 
 ---
 
+# 📂 Odysseus2D Codebase Structure
+
+Odysseus2D
+├── Odysseus2D.hpp                # Public engine header
+│
+├── Core/                         # Engine core systems
+│   ├── Application.hpp/.cpp      # Main application loop
+│   ├── Layer.hpp/.cpp            # Base class for layers
+│   ├── LayerStack.hpp/.cpp       # Layer stack management
+│   └── Input.cpp                 # Input handling
+│
+├── Scene/                        # Entity & world management
+│   ├── Scene.cpp                 # ECS scene logic
+│   └── Physics.cpp               # Physics integration (Box2D)
+│
+├── Renderer/                     # Rendering system
+│   └── Renderer2D.cpp            # 2D rendering
+│
+└── Utils/                        # Utility modules
+    ├── ConfigManager.cpp         # Loads JSON configs
+    └── RandomGenerator.cpp       # Random number utilities
+
+---
+
 ## 📦 Dependencies
 The project currently depends on the following libraries:
 
