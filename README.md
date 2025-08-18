@@ -1,6 +1,6 @@
 # Odysseus Project
 
-Odysseus is a **game engine passion project**, inspired by [Hazel Engine](https://github.com/TheCherno/Hazel).  
+Odysseus is a **game engine passion project**. I was inspired by [Hazel Engine](https://github.com/TheCherno/Hazel).
 It is being developed alongside a **sample Brick Breaker game** that serves as a showcase of the engine’s features.
 
 The project is still in active development — some parts are built on existing libraries, but the goal is to gradually replace them with custom implementations as the engine evolves.
@@ -8,10 +8,10 @@ The project is still in active development — some parts are built on existing 
 ---
 
 ## ✨ Features
-- Entity-Component-System (**ECS**) architecture
-- Data-Oriented Programming design principles
-- 2D rendering with sprite sheets and textures
-- Physics integration via **Box2D**
+- Entity-Component-System (**ECS**) architecture (currently using EnTT)
+- (Trying to consider) Data-Oriented Programming
+- 2D rendering with sprite sheets and textures (currently using SFML as backend)
+- Physics system via **Box2D**
 - Input handling (keyboard/mouse)
 - Scene management & layering system
 - Example game: **Brick Breaker**
