@@ -143,7 +143,7 @@ namespace Odysseus2D {
     {
         std::string TextString;
         std::shared_ptr<sf::Font> FontAsset; // SFML font
-        sf::Color Color = sf::Color::White;
+        glm::vec4 Color = { 1.f, 1.f, 1.f, 1.f };
         float Kerning = 0.0f;
         float LineSpacing = 0.0f;
     };

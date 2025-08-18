@@ -33,8 +33,8 @@ namespace Odysseus2D {
 			float Kerning = 0.0f;
 			float LineSpacing = 0.0f;
 		};
-		/*static void DrawString(const std::string& string, std::shared_ptr<Font> font, const glm::mat3& transform, const TextParams& textParams);
-		static void DrawString(const std::string& string, const glm::mat3& transform, const TextComponent& component, int entityID = -1);*/
+		static void DrawString(const std::string& string, std::shared_ptr<sf::Font> font, const glm::mat3& transform, const TextParams& textParams);
+		static void DrawString(const std::string& string, const glm::mat3& transform, const TextComponent& component);
 
 		static float GetLineWidth();
 		static void SetLineWidth(float width);

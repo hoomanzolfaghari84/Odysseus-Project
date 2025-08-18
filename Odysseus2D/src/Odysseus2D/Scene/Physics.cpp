@@ -3,6 +3,8 @@
 
 #include "Scene.hpp"
 
+#define PHYSICS_DEBUG_DRAW
+
 namespace Odysseus2D {
 
 	Physics::Physics(Scene* scene) : m_Scene(scene)
@@ -97,7 +99,10 @@ namespace Odysseus2D {
 
 	void Physics::SetVelocity(entt::entity e, glm::vec2 vel)
 	{
-		//TODO write this
+		if (m_Scene->GetRegistry().all_of<b2BodyId>(e)) {
+			b2BodyId bodyId = m_Scene->GetRegistry().get<b2BodyId>(e);
+			b2Body_SetLinearVelocity(bodyId, b2Vec2{ vel.x, vel.y });
+		}
 	}
 
 	void Physics::ApplyImpulse(entt::entity e, glm::vec2 impulse)
@@ -108,9 +113,17 @@ namespace Odysseus2D {
 		}
 	}
 
+	void Physics::SetPosition(entt::entity e, glm::vec2 pos) {
+		//TODO
+	}
+
+
+
+
+
 	void Physics::DebugDraw()
 	{
-#ifdef _DEBUG
+#ifdef PHYSICS_DEBUG_DRAW
 		b2World_Draw(m_WorldId, &m_DebugDraw);
 #endif
 	}

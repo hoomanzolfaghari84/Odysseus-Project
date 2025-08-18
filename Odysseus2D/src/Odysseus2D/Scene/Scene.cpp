@@ -68,6 +68,8 @@ namespace Odysseus2D {
 		m_IsRunning = false;
 
 		m_Physics.OnStop();
+
+		m_Registry.clear();
 	}
 
 	void Scene::OnUpdate(Timestep ts)
@@ -129,13 +131,11 @@ namespace Odysseus2D {
 
 		// Draw text
 		{
-			/*auto view = m_Registry.view<TransformComponent, TextComponent>();
-			for (auto entity : view)
-			{
-				auto [transform, text] = view.get<TransformComponent, TextComponent>(entity);
-
-				Renderer2D::DrawString(text.TextString, transform.GetTransform(), text, (int)entity);
-			}*/
+			auto view = m_Registry.view<TransformComponent, TextComponent>();
+			for (auto [entity, transform, text] : view.each()) {
+				
+				Renderer2D::DrawString(text.TextString, transform.GetTransform(), text);
+			}
 		}
 
 		Renderer2D::EndScene();

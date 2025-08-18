@@ -51,5 +51,16 @@ struct BrickInfo {
 };
 
 struct BallInfo {
-    
+    int speed;
 };
+
+struct PaddleInfo
+{
+    int speed;
+};
+
+struct ScoreBoardInfo
+{
+    int score = 0;
+};
+

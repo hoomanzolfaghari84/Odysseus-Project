@@ -19,6 +19,8 @@ namespace Odysseus2D {
 		std::vector<std::pair<sf::RectangleShape,sf::RenderStates>> rects;
 		std::vector<std::pair<sf::CircleShape, sf::RenderStates>> circles;
 		std::vector<std::pair<sf::Sprite, sf::RenderStates>> sprites;
+		std::vector<std::pair<sf::Text, sf::RenderStates>> texts;
+
 		
 		//std::array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
 		uint32_t TextureSlotIndex = 1; // 0 = white texture
@@ -62,6 +64,7 @@ namespace Odysseus2D {
 		s_Data.rects.clear();
 		s_Data.circles.clear();
 		s_Data.sprites.clear();
+		s_Data.texts.clear();
 	}
 
 	void Renderer2D::Flush()
@@ -77,6 +80,10 @@ namespace Odysseus2D {
 
 		for (auto rect : s_Data.circles) {
 			m_Window->draw(rect.first, rect.second);
+		}
+
+		for (auto text : s_Data.texts) {
+			m_Window->draw(text.first, text.second);
 		}
 
 		
@@ -171,15 +178,24 @@ namespace Odysseus2D {
 
 	}
 
-	/*void Renderer2D::DrawString(const std::string& string, std::shared_ptr<Font> font, const glm::mat4& transform, const TextParams& textParams, int entityID)
+	void Renderer2D::DrawString(const std::string& string, std::shared_ptr<sf::Font> font, const glm::mat3& transform, const TextParams& textParams)
 	{
+		sf::Text text(*font, string);
+		//text.setCharacterSize(20);
+		//text.setLineSpacing(textParams.LineSpacing);
+		text.setFillColor(glmVec4ToSfColor(textParams.Color));
 		
+		sf::Transform sfTransform = glmMat3ToSfTransform(transform);
+		sf::RenderStates states;
+		states.transform = sfTransform;
+
+		s_Data.texts.emplace_back(text, states);
 	}
 
-	void Renderer2D::DrawString(const std::string& string, const glm::mat4& transform, const TextComponent& component, int entityID)
+	void Renderer2D::DrawString(const std::string& string, const glm::mat3& transform, const TextComponent& component)
 	{
-		DrawString(string, component.FontAsset, transform, { component.Color, component.Kerning, component.LineSpacing }, entityID);
-	}*/
+		DrawString(string, component.FontAsset, transform, { component.Color, component.Kerning, component.LineSpacing });
+	}
 
 	float Renderer2D::GetLineWidth()
 	{

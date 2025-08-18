@@ -66,6 +66,7 @@ namespace Odysseus2D {
 
 		void SetVelocity(entt::entity e, glm::vec2 vel);
 		void ApplyImpulse(entt::entity e, glm::vec2 impulse);
+		void SetPosition(entt::entity e, glm::vec2 pos);
 
 		void DebugDraw();
 		/*void SetGravity(glm::vec2 gravity) {
