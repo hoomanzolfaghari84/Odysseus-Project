@@ -2,19 +2,30 @@
 #include <Odysseus2D/Core/EntryPoint.hpp>
 
 #include "Gameplay/Gameplay.hpp"
+#include "Menu/MenuLayer.hpp"
 
 class BrickBreaker : public Odysseus2D::Application
 {
+
+	//MenuLayer* m_MenuLayer = nullptr;
+	GameplayLayer* m_GameplayLayer = nullptr;
+
 public:
 	BrickBreaker(const Odysseus2D::ApplicationSpecifications& specification)
 		: Odysseus2D::Application(specification)
 	{
-		 PushLayer(new GameplayLayer());
-		// PushLayer(new Sandbox2D());
+
+		
+		m_GameplayLayer = new GameplayLayer();
+		PushLayer(m_GameplayLayer);
+
+		
 	}
 
 	~BrickBreaker()
 	{
+		/*delete m_MenuLayer;
+		delete m_GameplayLayer;*/
 	}
 };
 

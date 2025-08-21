@@ -6,6 +6,7 @@ void MenuLayer::OnAttach()
     auto title = m_Scene.CreateEntity("TitleText");
     Odysseus2D::TextComponent trc;
     trc.TextString = "Brick Breaker";
+    trc.FontAsset = std::make_shared<sf::Font>("assets\\fonts\\arial\\arial.ttf");
     trc.Color = { 1.f, 1.f, 0.f, 1.f }; // yellow
     m_Scene.GetRegistry().emplace<Odysseus2D::TextComponent>(title, trc);
     m_Scene.GetRegistry().emplace<Odysseus2D::TransformComponent>(title, glm::vec2{ 400.f, 100.f }, 0.0f, glm::vec2{ 1.f, 1.f });
@@ -13,6 +14,7 @@ void MenuLayer::OnAttach()
     auto startButton = m_Scene.CreateEntity("StartButton");
     Odysseus2D::TextComponent startTrc;
     startTrc.TextString = "Press ENTER to Start";
+    startTrc.FontAsset = std::make_shared<sf::Font>("assets\\fonts\\arial\\arial.ttf");
     startTrc.Color = { 1.f, 1.f, 1.f, 1.f }; // white
     m_Scene.GetRegistry().emplace<Odysseus2D::TextComponent>(startButton, startTrc);
     m_Scene.GetRegistry().emplace<Odysseus2D::TransformComponent>(startButton, glm::vec2{ 400.f, 200.f }, 0.0f, glm::vec2{ 1.f, 1.f });
@@ -22,8 +24,16 @@ void MenuLayer::OnAttach()
 
 void MenuLayer::OnDetach()
 {
+    m_Scene.OnStop();
 }
 
 void MenuLayer::OnUpdate(Odysseus2D::Timestep ts)
 {
+
+    if (Odysseus2D::Input::IsKeyPressed(sf::Keyboard::Key::Enter)) {
+        Odysseus2D::Application::Get().GetEventDispatcher().publish<MenuOptionChosen>({START_GAME});
+        
+    }
+
+    m_Scene.OnUpdate(ts);
 }

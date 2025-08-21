@@ -3,6 +3,16 @@
 #include <Odysseus2D.hpp>
 
 
+enum MenusOption
+{
+	START_GAME,
+	EXIT
+};
+
+struct MenuOptionChosen {
+	MenusOption option;
+};
+
 
 class MenuLayer : public Odysseus2D::Layer
 {
@@ -23,6 +33,5 @@ private:
 	//MenuFactory m_MenuFactory;
 
 private:
-
-
+	
 };

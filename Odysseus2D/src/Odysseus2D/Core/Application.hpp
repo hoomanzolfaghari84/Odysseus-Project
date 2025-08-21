@@ -38,13 +38,10 @@ namespace Odysseus2D {
 		Application(const ApplicationSpecifications& specification);
 		virtual ~Application();
 
-		/*template<typename E>
-		void OnEvent(const E& event) {
-			m_EventDispatcher.publish<E>(event);
-		}*/
-
+		
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
+		
 
 		void Close();
 
@@ -59,8 +56,6 @@ namespace Odysseus2D {
 
 	private:
 		void Run();
-		// bool OnWindowClose(WindowCloseEvent& e);
-		// bool OnWindowResize(WindowResizeEvent& e);
 
 	private:
 		ApplicationSpecifications m_Specification;
