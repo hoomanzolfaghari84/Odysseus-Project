@@ -82,6 +82,11 @@ namespace Odysseus2D {
 				b2CreateCircleShape(bodyId, &shapeDef, &circle);
 			}
 		}
+
+#ifdef _DEBUG
+		std::cout << "Started PhysWorld of " << m_Scene->DebugName << " Scene with World Id " << m_WorldId.index1 << " " << m_WorldId.generation << std::endl;
+#endif // _DEBUG
+
 	}
 
 	void Physics::OnStop() {

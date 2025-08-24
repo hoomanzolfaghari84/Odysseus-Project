@@ -22,7 +22,7 @@ namespace Odysseus2D {
 
     struct AnimationDefinition {
         std::vector<std::string> frames;
-        float frameTime;
+        float frameTime = 0.f;
     };
 
     struct SpriteSheetData {
@@ -37,8 +37,10 @@ namespace Odysseus2D {
         static std::shared_ptr<sf::Texture> LoadTexture(const std::string& name, const std::string& path) {
             if (textures.find(name) == textures.end()) {
                 sf::Texture tex;
-                tex.loadFromFile(path);
-                textures[name] = std::make_shared<sf::Texture>(tex);
+
+                if (tex.loadFromFile(path))
+                    textures[name] = std::make_shared<sf::Texture>(tex);
+                else return nullptr;
             }
             return textures[name];
         }

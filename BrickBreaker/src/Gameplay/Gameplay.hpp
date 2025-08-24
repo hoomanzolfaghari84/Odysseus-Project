@@ -9,27 +9,28 @@ enum GameState
 	PAUSED
 };
 
-// TODO:: Test if its fater to check ball-brick collisions without the physics engine.
 
-
-class GameplayLayer : public Odysseus2D::Layer
+class GameplayScene : public Odysseus2D::Scene
 {
 public:
-	GameplayLayer() : Layer("Gameplay Layer"), m_GameplayFactory(&m_Scene)
+	GameplayScene() : 
+#ifdef _DEBUG
+		Scene("Gameplay"),
+#endif // _DEBUG
+		m_GameplayFactory(this)
 	{
 		
 	}
 
-	~GameplayLayer()
+	~GameplayScene()
 	{
 	}
 
-	void OnAttach() override;
-	void OnDetach() override;
-	void OnUpdate(Odysseus2D::Timestep ts) override;
+	void OnStartScript() override;
+	void OnStopScript() override;
+	void OnUpdateScript(Odysseus2D::Timestep ts) override;
 
 private:
-	Odysseus2D::Scene m_Scene;
 	GameplayFactory m_GameplayFactory;
 	GameState m_GameState = AIMING;
 

@@ -3,7 +3,7 @@
 #
 
 # Add source to this project's executable.
-add_executable (BrickBreaker "src/BrickBreaker.cpp" "src/Gameplay/Gameplay.cpp" "src/Menu/MenuLayer.cpp")
+add_executable (BrickBreaker "src/BrickBreaker.cpp" "src/Gameplay/Gameplay.cpp" "src/Menu/Menu.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET BrickBreaker PROPERTY CXX_STANDARD 20)

@@ -14,7 +14,22 @@ namespace Odysseus2D {
 		Scene();
 		~Scene();
 
-		static std::shared_ptr<Scene> Copy(std::shared_ptr<Scene> other);
+		
+		virtual void OnStartScript() {};
+		virtual void OnUpdateScript(Timestep ts) {};
+		virtual void OnStopScript() {};
+
+
+
+#ifdef _DEBUG
+		Scene(std::string name) : DebugName(name), m_Physics(this) {
+
+		}
+		std::string DebugName = "";
+#endif // _DEBUG
+
+
+		//static std::shared_ptr<Scene> Copy(std::shared_ptr<Scene> other);
 
 		entt::entity CreateEntity(const std::string& name = std::string());
 		void DestroyEntity(entt::entity entity);

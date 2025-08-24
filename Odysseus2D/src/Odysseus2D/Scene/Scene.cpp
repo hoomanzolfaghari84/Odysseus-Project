@@ -16,23 +16,23 @@ namespace Odysseus2D {
 	{
 	}
 
-	std::shared_ptr<Scene> Scene::Copy(std::shared_ptr<Scene> other) // TODO complete this
-	{
-		std::shared_ptr<Scene> newScene = std::make_shared<Scene>();
+	//std::shared_ptr<Scene> Scene::Copy(std::shared_ptr<Scene> other) // TODO complete this
+	//{
+	//	std::shared_ptr<Scene> newScene = std::make_shared<Scene>();
 
-		auto& srcSceneRegistry = other->m_Registry;
-		auto& dstSceneRegistry = newScene->m_Registry;
+	//	auto& srcSceneRegistry = other->m_Registry;
+	//	auto& dstSceneRegistry = newScene->m_Registry;
 
-		// Create entities in new scene
-		
-		/*for (auto e :)
-		{
-			
-		}*/
+	//	// Create entities in new scene
+	//	
+	//	/*for (auto e :)
+	//	{
+	//		
+	//	}*/
 
 
-		return newScene;
-	}
+	//	return newScene;
+	//}
 
 	entt::entity Scene::CreateEntity(const std::string& name)
 	{
@@ -59,7 +59,14 @@ namespace Odysseus2D {
 	{
 		m_IsRunning = true;
 
+		OnStartScript();
+
 		m_Physics.OnStart();
+
+#ifdef _DEBUG
+		std::cout << "Started " << DebugName << " Scene" << std::endl;
+#endif // _DEBUG
+
 
 	}
 
@@ -67,13 +74,27 @@ namespace Odysseus2D {
 	{
 		m_IsRunning = false;
 
+		OnStopScript();
+
 		m_Physics.OnStop();
 
 		m_Registry.clear();
+
+
+#ifdef _DEBUG
+		std::cout << "Stopped " << DebugName << " Scene" << std::endl;
+#endif // _DEBUG
+
 	}
 
 	void Scene::OnUpdate(Timestep ts)
 	{
+
+
+		OnUpdateScript(ts);
+
+		if (!m_IsRunning) return;
+
 		//if (!m_IsPaused || m_StepFrames-- > 0)
 		if(!m_IsPaused)
 		{
@@ -82,6 +103,7 @@ namespace Odysseus2D {
 			m_Physics.OnUpdate(ts);
 		}
 
+		if (!m_IsRunning) return;
 		// Render 2D
 		RenderScene();
 		

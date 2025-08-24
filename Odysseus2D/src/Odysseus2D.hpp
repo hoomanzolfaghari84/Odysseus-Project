@@ -20,6 +20,7 @@
 
 #include "Odysseus2D/Scene/Components.hpp"
 #include "Odysseus2D/Scene/Scene.hpp"
+#include "Odysseus2D/Scene/WorldLayer.hpp"
 
 #include "Odysseus2D/Utils/AssetManager.hpp"
 #include "Odysseus2D/Utils/ConfigManager.hpp"
